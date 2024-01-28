@@ -105,4 +105,45 @@ class PrisustvaController extends Controller
             'poruka' => 'Ne postoji prisustvo sa tim id-em'
         ], 404);
     }
+
+    public function findByUser(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required|numeric'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'poruka' => 'Uneti podaci nisu ispravni',
+                'greske' => $validator->errors()
+            ], 401);
+        }
+
+        $prisustva = Prisustvo::where('user_id', $request->user_id)->get();
+        return response()->json([
+            'poruka' => 'Uspesno ste dobavili prisustva',
+            'podaci' => PrisustvoResurs::collection($prisustva)
+        ]);
+    }
+
+    public function paginatePrisustva(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'po_strani' => 'required|numeric',
+            'page' => 'required|numeric'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'poruka' => 'Uneti podaci nisu ispravni',
+                'greske' => $validator->errors()
+            ], 401);
+        }
+
+        $prisustva = Prisustvo::paginate($request->po_strani);
+        return response()->json([
+            'poruka' => 'Uspesno ste dobavili prisustva',
+            'podaci' => PrisustvoResurs::collection($prisustva)
+        ]);
+    }
 }

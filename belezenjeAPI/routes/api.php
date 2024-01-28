@@ -28,6 +28,9 @@ Route::resource('/ocene', 'App\Http\Controllers\OceneController')->only([
     'index', 'show'
 ]);
 
+Route::get('/paginacija', 'App\Http\Controllers\PrisustvaController@paginatePrisustva');
+Route::get('/pretraga-po-useru', 'App\Http\Controllers\PrisustvaController@findByUser');
+
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::resource('/dogadjaji', 'App\Http\Controllers\DogadjajController')->only([
         'store', 'update', 'destroy'
@@ -37,9 +40,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         'store', 'update', 'destroy'
     ]);
 
-    Route::resource('/ocene', 'App\Http\Controllers\OceneController')->only([
-        'store', 'update', 'destroy'
-    ]);
+    Route::post("/ocene", "App\Http\Controllers\OceneController@store");
+    Route::put("/ocene/{id}", "App\Http\Controllers\OceneController@update");
+    Route::delete("/ocene/{id}", "App\Http\Controllers\OceneController@destroy");
 
     Route::post("/logout", "App\Http\Controllers\UserAuthController@logout");
 });
