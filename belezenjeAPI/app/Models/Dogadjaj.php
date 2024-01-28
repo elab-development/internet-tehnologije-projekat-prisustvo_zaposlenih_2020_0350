@@ -12,7 +12,7 @@ class Dogadjaj extends Model
     protected $table = 'dogadjaji';
 
     protected $fillable = [
-        'nazivDogadjaja',
+        'naziv_dogadjaja',
         'vreme_pocetka',
         'vreme_kraja',
     ];
