@@ -32,6 +32,7 @@ Route::get('/paginacija', 'App\Http\Controllers\PrisustvaController@paginatePris
 Route::get('/pretraga-po-useru', 'App\Http\Controllers\PrisustvaController@findByUser');
 Route::get('/pretraga-po-dogadjaju', 'App\Http\Controllers\PrisustvaController@findByDogadjaj');
 Route::get('/ocena-ukupno', 'App\Http\Controllers\PrisustvaController@groupPrisustvaByOcena');
+Route::get('/pretraga-po-oceni', 'App\Http\Controllers\PrisustvaController@findByOcena');
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::resource('/dogadjaji', 'App\Http\Controllers\DogadjajController')->only([

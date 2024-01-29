@@ -6,6 +6,7 @@ use App\Http\Resources\PrisustvoResurs;
 use App\Models\Prisustvo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class PrisustvaController extends Controller
 {
@@ -178,6 +179,26 @@ class PrisustvaController extends Controller
         return response()->json([
             'poruka' => 'Uspesno ste dobavili prisustva',
             'podaci' => $prisustva
+        ]);
+    }
+
+    public function findByOcena(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'ocena_id' => 'required|numeric'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'poruka' => 'Uneti podaci nisu ispravni',
+                'greske' => $validator->errors()
+            ], 401);
+        }
+
+        $prisustva = Prisustvo::where('ocena_id', $request->ocena_id)->get();
+        return response()->json([
+            'poruka' => 'Uspesno ste dobavili prisustva',
+            'podaci' => PrisustvoResurs::collection($prisustva)
         ]);
     }
 }
