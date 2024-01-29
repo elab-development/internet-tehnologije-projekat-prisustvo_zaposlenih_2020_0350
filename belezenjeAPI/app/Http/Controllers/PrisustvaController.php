@@ -166,4 +166,18 @@ class PrisustvaController extends Controller
             'podaci' => PrisustvoResurs::collection($prisustva)
         ]);
     }
+
+    public function groupPrisustvaByOcena(Request $request)
+    {
+        $prisustva = DB::table('prisustva')
+            ->select(DB::raw('COUNT(*) as broj_prisustava, oznaka'))
+            ->join('ocene', 'prisustva.ocena_id', '=', 'ocene.id')
+            ->groupBy('oznaka')
+            ->get();
+
+        return response()->json([
+            'poruka' => 'Uspesno ste dobavili prisustva',
+            'podaci' => $prisustva
+        ]);
+    }
 }
