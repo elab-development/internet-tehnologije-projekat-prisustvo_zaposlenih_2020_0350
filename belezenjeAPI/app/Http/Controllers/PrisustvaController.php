@@ -146,4 +146,24 @@ class PrisustvaController extends Controller
             'podaci' => PrisustvoResurs::collection($prisustva)
         ]);
     }
+
+    public function findByDogadjaj(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'dogadjaj_id' => 'required|numeric'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'poruka' => 'Uneti podaci nisu ispravni',
+                'greske' => $validator->errors()
+            ], 401);
+        }
+
+        $prisustva = Prisustvo::where('dogadjaj_id', $request->dogadjaj_id)->get();
+        return response()->json([
+            'poruka' => 'Uspesno ste dobavili prisustva',
+            'podaci' => PrisustvoResurs::collection($prisustva)
+        ]);
+    }
 }
