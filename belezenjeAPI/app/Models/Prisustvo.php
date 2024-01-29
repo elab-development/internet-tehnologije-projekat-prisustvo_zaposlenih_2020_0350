@@ -25,4 +25,10 @@ class Prisustvo extends Model
     {
         return $this->belongsTo(Dogadjaj::class);
     }
+
+    public function ocena()
+    {
+        return $this->belongsTo(Ocena::class);
+    }
+
 }
