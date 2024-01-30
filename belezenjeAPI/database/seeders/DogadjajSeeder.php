@@ -20,21 +20,21 @@ class DogadjajSeeder extends Seeder
         ]);
 
         Dogadjaj::create([
-            'naziv_dogadjaja' => 'Casovi kuvanja sa HeltiNenom',
-            'vreme_pocetka' => '2024-02-05 19:00:00',
-            'vreme_kraja' => '2024-02-05 20:00:00',
+            'naziv_dogadjaja' => 'Sastanak sa direktorom kompanije',
+            'vreme_pocetka' => '2024-02-05 14:00:00',
+            'vreme_kraja' => '2024-02-05 15:00:00',
         ]);
 
         Dogadjaj::create([
-            'naziv_dogadjaja' => 'Movie night',
-            'vreme_pocetka' => '2024-02-06 19:00:00',
-            'vreme_kraja' => '2024-02-06 20:00:00',
+            'naziv_dogadjaja' => 'IT Konferencija',
+            'vreme_pocetka' => '2024-02-06 11:00:00',
+            'vreme_kraja' => '2024-02-06 12:00:00',
         ]);
 
         Dogadjaj::create([
-            'naziv_dogadjaja' => 'Only girls night',
-            'vreme_pocetka' => '2024-02-07 19:00:00',
-            'vreme_kraja' => '2024-02-07 20:00:00',
+            'naziv_dogadjaja' => 'Obuka za novi program',
+            'vreme_pocetka' => '2024-02-07 9:00:00',
+            'vreme_kraja' => '2024-02-07 10:00:00',
         ]);
     }
 }
