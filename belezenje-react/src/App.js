@@ -1,24 +1,24 @@
 import logo from './logo.svg';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Navigacija from "./komponente/Navigacija";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import Home from "./stranice/Home";
+import ONama from "./stranice/ONama";
+import Kontakt from "./stranice/Kontakt";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+       <Navigacija />
+      <BrowserRouter>
+        <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/onama" element={<ONama />} />
+            <Route path="/kontakt" element={<Kontakt />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
