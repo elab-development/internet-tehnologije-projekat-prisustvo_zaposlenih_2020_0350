@@ -5,6 +5,7 @@ import code from "../slike/code.png";
 import web from "../slike/website-codes.png";
 import PocetnaKartica from "../komponente/PocetnaKartica";
 import {Row} from "react-bootstrap";
+import Footer from "../komponente/Footer";
 
 const Home = () => {
 
@@ -32,7 +33,7 @@ const Home = () => {
     return (
         <>
             <Welcome poruka="Dobrodošli" opis="na naš sajt"/>
-            <Row className="mt-3">
+            <Row className="m-3">
             {
                 kartice.map(kartica => {
                     return (
@@ -43,6 +44,7 @@ const Home = () => {
                 })
             }
             </Row>
+            <Footer />
         </>
     );
 };

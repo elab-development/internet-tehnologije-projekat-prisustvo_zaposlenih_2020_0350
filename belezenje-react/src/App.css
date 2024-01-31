@@ -15,3 +15,14 @@ body {
   flex-direction: column;
   color: #fff;
 }
+
+.footer {
+  background-color: #6e6363;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: #fff;
+  padding: 3px;
+}
