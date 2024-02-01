@@ -6,6 +6,7 @@ import web from "../slike/website-codes.png";
 import PocetnaKartica from "../komponente/PocetnaKartica";
 import {Row} from "react-bootstrap";
 import Footer from "../komponente/Footer";
+import RekliSuONama from '../komponente/RekliSuONama';
 
 const Home = () => {
 
@@ -44,6 +45,7 @@ const Home = () => {
                 })
             }
             </Row>
+            <RekliSuONama />
             <Footer />
         </>
     );
