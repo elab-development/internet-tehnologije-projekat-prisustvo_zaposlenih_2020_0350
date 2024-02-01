@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navigacija from "./komponente/Navigacija";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
