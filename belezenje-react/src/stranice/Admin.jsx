@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import Welcome from "../komponente/Welcome";
 import {Row, Table, Form} from "react-bootstrap";
-import PocetnaKartica from "../komponente/PocetnaKartica";
 import Footer from "../komponente/Footer";
 import instanca from "../axios/instanca";
+import { Chart } from "react-google-charts";
+
 
 const Admin = () => {
 
@@ -12,6 +13,34 @@ const Admin = () => {
     const [ocene, setOcene] = useState([]);
     const [izabraniDogadjajId, setIzabraniDogadjajId] = useState(1);
     const [useri, setUseri] = useState([]);
+    const [data, setData] = useState([]);
+
+    const options = {
+        title: "Prisustva po oceni",
+        pieHole: 0.4,
+        is3D: true
+    };
+
+    useEffect(() => {
+        instanca.get("/ocena-ukupno").then(res => {
+            console.log(res);
+            console.log('podaci', res.data.podaci)
+            let podaci = res.data.podaci;
+
+            let data = [
+                ["Ocena", "Broj prisustava"]
+            ];
+
+            for (let i = 0; i < podaci.length; i++) {
+                data.push([podaci[i].oznaka, podaci[i].broj_prisustava]);
+            }
+
+            setData(data);
+        }).catch(err => {
+            console.log(err);
+        });
+    }, []);
+
 
     useEffect(() => {
         instanca.get("/dogadjaji").then(res => {
@@ -42,7 +71,7 @@ const Admin = () => {
             console.log(err);
         });
     }, []);
-    
+
 
     const promeniIzabraniDogadjaj = (e) => {
         setIzabraniDogadjajId(e.target.value);
@@ -107,6 +136,20 @@ const Admin = () => {
                         }
                     </Form.Select>
                 </div>
+            </Row>
+
+            <Row className="m-3">
+                {
+                    data && (
+                        <Chart
+                            chartType="PieChart"
+                            data={data}
+                            options={options}
+                            width={"100%"}
+                            height={"400px"}
+                        />
+                    )
+                }
             </Row>
             <Footer/>
         </>
