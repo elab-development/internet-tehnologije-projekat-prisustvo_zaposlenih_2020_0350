@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Welcome from "../komponente/Welcome";
-import {Row, Table, Form} from "react-bootstrap";
+import {Row, Table, Form, Col} from "react-bootstrap";
 import Footer from "../komponente/Footer";
 import instanca from "../axios/instanca";
 import { Chart } from "react-google-charts";
@@ -14,12 +14,38 @@ const Admin = () => {
     const [izabraniDogadjajId, setIzabraniDogadjajId] = useState(1);
     const [useri, setUseri] = useState([]);
     const [data, setData] = useState([]);
+    const [svaPrisustva, setSvaPrisustva] = useState([]);
+    const [brojDugmica, setBrojDugmica] = useState(null);
+    const [nizDugmica, setNizDugmica] = useState([]);
+    const [page, setPage] = useState(1);
+    const [paginiranaPristustva, setPaginiranaPristustva] = useState([]);
+
+    const poStrani = 5;
 
     const options = {
         title: "Prisustva po oceni",
         pieHole: 0.4,
         is3D: true
     };
+
+    useEffect(() => {
+        instanca.get("/prisustva").then(res => {
+            console.log(res);
+            let podaci = res.data.podaci;
+            let brojDugmica = Math.ceil(podaci.length / poStrani);
+            setBrojDugmica(brojDugmica);
+            let niz = [];
+            for (let i = 1; i <= brojDugmica; i++) {
+                niz.push(i);
+            }
+            setNizDugmica(niz);
+            console.log('nizDugmica', niz);
+            setSvaPrisustva(podaci);
+            setPaginiranaPristustva(podaci.slice(0, poStrani));
+        }).catch(err => {
+            console.log(err);
+        });
+    }, []);
 
     useEffect(() => {
         instanca.get("/ocena-ukupno").then(res => {
@@ -71,6 +97,16 @@ const Admin = () => {
             console.log(err);
         });
     }, []);
+
+    useEffect(() => {
+        instanca.get("/paginacija?po_strani=" + poStrani +"&page=" + page).then(res => {
+            console.log(res);
+            let podaci = res.data.podaci;
+            setPaginiranaPristustva(podaci);
+        }).catch(err => {
+            console.log(err);
+        });
+    }, [page]);
 
 
     const promeniIzabraniDogadjaj = (e) => {
@@ -150,6 +186,61 @@ const Admin = () => {
                         />
                     )
                 }
+            </Row>
+            <Row>
+                <Col>
+
+                    <Table hover>
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>User</th>
+                                <th>Dogadjaj</th>
+                                <th>Ocena</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                {
+                    paginiranaPristustva && paginiranaPristustva.map(p => {
+                        return (
+                                <tr key={p.id}>
+                                <td>{p.id}</td>
+                                <td>{p.user.name}</td>
+                                <td>{p.dogadjaj.naziv_dogadjaja}</td>
+                                <td>{p.ocena.opis}</td>
+                            </tr>
+                        );
+                    })
+                }
+                </tbody>
+                </Table>
+                </Col>
+            </Row>
+
+            <Row>
+                <Col>
+                    <button onClick={() => {
+                        let n = page - 1;
+                        setPage(n);
+                    }} className="btn btn-primary m-1">Prethodna stranica
+                    </button>
+                    {
+                        nizDugmica && nizDugmica.map(n => {
+                            return (
+                                <button key={n} onClick={() => {
+                                    setPage(n);
+                                }} className="btn btn-primary m-1">{n}</button>
+                            );
+                        })
+                    }
+
+                    <button onClick={() => {
+                        let n = page + 1;
+                        setPage(n);
+                    }} className="btn btn-primary m-1">Sledeca stranica
+                    </button>
+                </Col>
             </Row>
             <Footer/>
         </>
