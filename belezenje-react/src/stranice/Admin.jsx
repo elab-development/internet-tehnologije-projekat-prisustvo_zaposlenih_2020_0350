@@ -222,6 +222,9 @@ const Admin = () => {
                 <Col>
                     <button onClick={() => {
                         let n = page - 1;
+                        if (n < 1) {
+                            n = 1;
+                        }
                         setPage(n);
                     }} className="btn btn-primary m-1">Prethodna stranica
                     </button>
@@ -237,6 +240,9 @@ const Admin = () => {
 
                     <button onClick={() => {
                         let n = page + 1;
+                        if (n > brojDugmica) {
+                            n = brojDugmica;
+                        }
                         setPage(n);
                     }} className="btn btn-primary m-1">Sledeca stranica
                     </button>
