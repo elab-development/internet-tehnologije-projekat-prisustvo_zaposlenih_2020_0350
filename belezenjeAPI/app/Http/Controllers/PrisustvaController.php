@@ -174,6 +174,7 @@ class PrisustvaController extends Controller
             ->select(DB::raw('COUNT(*) as broj_prisustava, oznaka'))
             ->join('ocene', 'prisustva.ocena_id', '=', 'ocene.id')
             ->groupBy('oznaka')
+            ->orderBy('broj_prisustava', 'desc')
             ->get();
 
         return response()->json([
