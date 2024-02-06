@@ -28,6 +28,7 @@ const Navigacija = () => {
                     <Nav className="me-auto">
                         <Nav.Link href="/">Pocetna</Nav.Link>
                         <Nav.Link href="/onama">O nama</Nav.Link>
+                        <Nav.Link href="/profesori">Profesori</Nav.Link>
                         <Nav.Link href="/kontakt">Kontakt</Nav.Link>
                         {
                             ulogovan ?

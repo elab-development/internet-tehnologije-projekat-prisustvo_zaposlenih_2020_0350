@@ -12,6 +12,7 @@ import Login from "./stranice/Login";
 import Registracija from "./stranice/Registracija";
 import Admin from "./stranice/Admin";
 import Dogadjaji from "./stranice/Dogadjaji";
+import GostujuciProfesori from './stranice/GostujuciProfesori';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
                 <Route path="/registracija" element={<Registracija />} />
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/dogadjaji" element={<Dogadjaji />} />
+                <Route path="/profesori" element={<GostujuciProfesori />} />
             </Routes>
           </BrowserRouter>
        </Container>
