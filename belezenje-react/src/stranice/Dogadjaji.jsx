@@ -5,13 +5,14 @@ import Welcome from "../komponente/Welcome";
 import { Calendar, dayjsLocalizer } from 'react-big-calendar'
 import dayjs from 'dayjs'
 import {Col, Row} from "react-bootstrap";
-import axios from "axios";
+import ICalendarLink from "react-icalendar-link";
 
 const Dogadjaji = () => {
 
     const [dogadjaji, setDogadjaji] = useState([]);
     const [izabraniDogadjaj, setIzabraniDogadjaj] = useState({});
     const [prisustva, setPrisustva] = useState([]);
+    const [event, setEvent] = useState({});
 
     useEffect(() => {
         instanca.get("/dogadjaji").then(res => {
@@ -41,15 +42,27 @@ const Dogadjaji = () => {
                 console.log(res);
                 let podaci = res.data.podaci;
                 setPrisustva(podaci);
+
+                setEvent({
+                    title: izabraniDogadjaj.title,
+                    description: "Prisustva na dogadjaju",
+                    startTime: izabraniDogadjaj.start.toUTCString(),
+                    endTime: izabraniDogadjaj.end.toUTCString(),
+                    location: "Online",
+                    attendees: podaci.map(p => {
+                        return p.user.name + " <" + p.user.email + ">";
+                    })
+                })
+
             }).catch(err => {
                 console.log(err);
             });
-        } else {
+        }else {
             console.log("Nema izabranog dogadjaja");
         }
     }, [izabraniDogadjaj]);
 
-    const localizer = dayjsLocalizer(dayjs)
+    const localizer = dayjsLocalizer(dayjs);
 
     return (
         <>
@@ -66,8 +79,9 @@ const Dogadjaji = () => {
                            style={{ height: 500 }}
                            onSelectEvent={event => {
                             let text = `Naziv dogadjaja: ${event.title}\nVreme pocetka: ${event.start}\nVreme kraja: ${event.end}`;
-                            setIzabraniDogadjaj(event);
-                            alert(text);
+
+                               setIzabraniDogadjaj(event);
+                               alert(text);
                            }}
                        />
                    </Col>
@@ -84,6 +98,15 @@ const Dogadjaji = () => {
                                 })
                             }
                         </ul>
+
+                        <hr/>
+                        {
+                            event.title && (
+                                <ICalendarLink event={event}>
+                                    <button className="btn btn-primary">Dodaj u kalendar</button>
+                                </ICalendarLink>
+                            )
+                        }
 
                     </Col>
                 </Row>
