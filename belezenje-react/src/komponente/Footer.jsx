@@ -4,8 +4,8 @@ const Footer = () => {
     return (
         <>
             <footer className="footer">
-                <p className="mt-2">Želimo vam ugodan dan</p>
-                <p>Kreiran sajt by Mina and Nina</p>
+                <p className="mt-2">Sajt napravljen u svrhu evidencije prisustva zaposlenih</p>
+                <p>Kreiran od strane Mine i Nine</p>
             </footer>
         </>
     );
