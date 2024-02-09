@@ -12,13 +12,13 @@ const ONama = () => {
         {
             id: 1,
             naslov: "Mina Zavišić",
-            tekst: "Mina je studentkinja četvrte godine FONa, smer ISIT. Voli da programira i da se bavi sportom.",
+            tekst: "Mina je studentkinja četvrte godine FONa, smer ISIT. Voli da programira i da se bavi sportom. Vredno je radila na pravljenju ove aplikacije za evidenciju prisustva zaposlenih.",
             slika: mina
         },
         {
             id: 2,
             naslov: "Nina Živković",
-            tekst: "Nina je studentkinja četvrte godine FONa, smer ISIT. Voli da isprobava novu hranu i čita modne časopise.",
+            tekst: "Nina je studentkinja četvrte godine FONa, smer ISIT. Voli da uči i istražuje nove stvari. Uživala je radeći na ovom projektu.",
             slika: nina
         }
     ];
